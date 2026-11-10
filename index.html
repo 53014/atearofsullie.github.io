@@ -1,0 +1,33 @@
+---
+layout: default
+title: 기록
+---
+
+<section class="intro">
+  <p class="eyebrow">A TEAR OF SULLIE</p>
+  <h1>조용히, 오래도록.</h1>
+  <p class="intro-copy">흘려보내기 아까운 생각과 문장들을 이곳에 남깁니다.</p>
+</section>
+
+<section class="entries" aria-labelledby="entries-title">
+  <div class="section-heading">
+    <h2 id="entries-title">기록</h2>
+    <span class="entry-count">{{ site.posts | size }}개의 글</span>
+  </div>
+
+  {% if site.posts.size > 0 %}
+    <ul class="post-list">
+      {% for post in site.posts %}
+        <li class="post-item">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          {% if post.description %}
+            <p>{{ post.description }}</p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty">아직 쓴 글이 없어요. 첫 문장을 기다리고 있어요.</p>
+  {% endif %}
+</section>
