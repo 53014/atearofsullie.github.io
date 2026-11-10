@@ -17,17 +17,20 @@ title: 기록
 
   {% if site.posts.size > 0 %}
     <ul class="post-list">
-      {% for post in site.posts %}
+      {% assign sorted_posts = site.posts | sort: "display_date" | reverse %}
+      {% for post in sorted_posts %}
         <li class="post-item">
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
+          <time datetime="{{ post.display_date | default: post.date | date: '%Y-%m-%d' }}">{{ post.display_date | default: post.date | date: "%Y.%m.%d" }}</time>
           <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
           {% if post.description %}
             <p>{{ post.description }}</p>
           {% endif %}
+          <a class="edit-link" href="https://github.com/53014/atearofsullie.github.io/edit/main/{{ post.path }}" target="_blank" rel="noopener">날짜·글 수정 ↗</a>
         </li>
       {% endfor %}
     </ul>
   {% else %}
     <p class="empty">아직 쓴 글이 없어요. 첫 문장을 기다리고 있어요.</p>
   {% endif %}
+  <a class="write-link" href="{{ '/write/' | relative_url }}">＋ 새 글 쓰기</a>
 </section>

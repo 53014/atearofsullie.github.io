@@ -1,0 +1,103 @@
+---
+layout: default
+title: 새 글 쓰기
+permalink: /write/
+---
+
+<section class="writer">
+  <a class="back-link" href="{{ '/' | relative_url }}">← 기록 목록으로</a>
+  <p class="eyebrow">WRITE A NEW PAGE</p>
+  <h1>새로운 기록</h1>
+  <p class="writer-intro">날짜와 글을 작성한 뒤 파일을 내려받아 GitHub의 <code>_posts</code> 폴더에 올리면 게시됩니다.</p>
+
+  <form id="post-form" class="post-form">
+    <label for="post-date">기록 날짜</label>
+    <input id="post-date" name="date" type="date" required>
+
+    <label for="post-title">제목</label>
+    <input id="post-title" name="title" type="text" maxlength="100" placeholder="글 제목" required>
+
+    <label for="post-description">짧은 소개 <span>(선택)</span></label>
+    <input id="post-description" name="description" type="text" maxlength="180" placeholder="목록에 표시할 한 줄">
+
+    <label for="post-body">본문</label>
+    <textarea id="post-body" name="body" rows="14" placeholder="오늘의 생각을 적어보세요." required></textarea>
+
+    <button class="primary-button" type="submit">글 파일 만들기 (.md)</button>
+    <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+  </form>
+
+  <aside class="how-to">
+    <h2>다운로드한 뒤 게시하는 방법</h2>
+    <ol>
+      <li>GitHub 저장소 <strong>atearofsullie.github.io</strong>를 엽니다.</li>
+      <li><code>_posts</code> 폴더에 들어갑니다.</li>
+      <li><strong>Add file → Upload files</strong>를 눌러 방금 받은 Markdown 파일을 올립니다.</li>
+      <li><strong>Commit changes</strong>를 누르면 잠시 후 기록 목록에 나타납니다.</li>
+    </ol>
+  </aside>
+</section>
+
+<script>
+(function () {
+  const form = document.getElementById("post-form");
+  const dateInput = document.getElementById("post-date");
+  const message = document.getElementById("form-message");
+
+  // 한국 시간 기준 오늘 날짜를 기본값으로 설정
+  const now = new Date();
+  const localToday = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+    .toISOString().slice(0, 10);
+  dateInput.value = localToday;
+
+  function yamlQuote(value) {
+    return '"' + String(value).replace(/\\/g, "\\\\").replace(/"/g, '\\"')
+      .replace(/\r?\n/g, " ") + '"';
+  }
+
+  function makeSlug(value) {
+    return value.trim()
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, "-")
+      .replace(/^-+|-+$/g, "") || "untitled";
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const date = dateInput.value;
+    const title = document.getElementById("post-title").value.trim();
+    const description = document.getElementById("post-description").value.trim();
+    const body = document.getElementById("post-body").value.replace(/\r\n/g, "\n").trim();
+
+    if (!date || !title || !body) {
+      message.textContent = "날짜, 제목, 본문을 모두 입력해 주세요.";
+      return;
+    }
+
+    const markdown = [
+      "---",
+      "title: " + yamlQuote(title),
+      "display_date: " + yamlQuote(date),
+      "description: " + yamlQuote(description),
+      "---",
+      "",
+      body,
+      ""
+    ].join("\n");
+
+    const filename = date + "-" + makeSlug(title) + ".md";
+    const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+
+    message.textContent = filename + " 파일을 만들었어요. 이제 GitHub의 _posts 폴더에 업로드해 주세요.";
+  });
+})();
+</script>

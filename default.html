@@ -16,6 +16,10 @@
       <span>{{ site.title }}</span>
     </a>
     <p class="site-description">{{ site.description }}</p>
+    <nav class="site-nav" aria-label="주 메뉴">
+      <a href="{{ '/' | relative_url }}">기록</a>
+      <a href="{{ '/write/' | relative_url }}">새 글 쓰기</a>
+    </nav>
   </header>
 
   <main class="container">
