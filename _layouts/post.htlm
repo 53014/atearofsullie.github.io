@@ -1,0 +1,7 @@
+--- layout: default ---
+← 모든 기록
+A PAGE FROM MY JOURNAL
+
+{{ page.title }}
+{{ page.display_date | default: page.date | date: "%Y년 %m월 %d일" }} 이 글의 날짜·내용 수정 ↗
+{{ content }}
