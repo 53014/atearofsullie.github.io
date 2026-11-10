@@ -3,9 +3,8 @@ description: "눈물로 남기는 나의 기록"
 lang: ko
 timezone: Asia/Seoul
 
-# GitHub Pages 프로젝트 사이트 주소에 맞춘 설정
 url: "https://53014.github.io"
-baseurl: "/sulliesrecord.github.io"
+baseurl: "/atearofsullie.github.io"
 
 markdown: kramdown
 permalink: /:year/:month/:day/:title/

@@ -5,7 +5,7 @@
 ## GitHub에 올리는 방법
 
 1. ZIP 파일을 압축 해제합니다.
-2. 압축 해제한 폴더 안의 **모든 파일과 폴더**를 GitHub 저장소 `53014/sulliesrecord.github.io`의 최상위에 업로드합니다.
+2. 압축 해제한 폴더 안의 **모든 파일과 폴더**를 GitHub 저장소 `53014/atearofsullie.github.io`의 최상위에 업로드합니다.
 3. 폴더 구조가 다음과 같은지 확인합니다.
    - `assets/css/style.css`
    - `_layouts/default.html`
@@ -16,7 +16,7 @@
 4. GitHub 저장소의 Settings → Pages에서 `main` 브랜치와 `/(root)`가 선택되어 있는지 확인합니다.
 5. Actions 탭에서 Pages 배포가 완료된 뒤 아래 주소를 엽니다.
 
-https://53014.github.io/sulliesrecord.github.io/
+https://53014.github.io/atearofsullie.github.io/
 
 ## 새 글 쓰기
 
